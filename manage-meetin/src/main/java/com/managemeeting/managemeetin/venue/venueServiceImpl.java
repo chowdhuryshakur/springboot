@@ -14,6 +14,7 @@ public  class venueServiceImpl /*implements meetingsService */{
 
     @Autowired
     private VenueRepository venueRepository;
+    private Object Null;
 
 
     public Venue save(Venue venue) {
@@ -31,17 +32,19 @@ public  class venueServiceImpl /*implements meetingsService */{
         return venueRepository.findAll();
     }
 
-    public void deleteVenue() {
+    public void deleteAllVenue() {
         venueRepository.deleteAll();
     }
 
-    public Venue getVenue(String vid) {
-        return null;
+
+    public void deleteVenue(String id) {
+        venueRepository.deleteById(id);
     }
 
-   /* @Override
-    public Meetings getMeeting(Integer meetingId) {
-        return meetingsRepository.findOne(meetingId);
-    }*/
+
+    public Venue getVenue(String id) {
+        return venueRepository.findById(id).orElse((Venue) Null); }
+
+
 
 }

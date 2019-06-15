@@ -13,6 +13,7 @@ public  class memberServiceImpl {
 
     @Autowired
     private MemberRepository memberRepository;
+    private Object Null;
 
 
     public Member save(Member member){
@@ -29,12 +30,18 @@ public  class memberServiceImpl {
         return memberRepository.findAll();
     }
 
-    public void deleteMember() {
+    public void deleteAllMember() {
         memberRepository.deleteAll();
     }
 
-    public Member getMember(String memberId) {
-        return null;
+
+    public void deleteMember(String id) {
+        memberRepository.deleteById(id);
+    }
+
+
+    public Member getMember(String id) {
+        return memberRepository.findById(id).orElse((Member) Null);
     }
 
 

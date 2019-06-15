@@ -26,13 +26,18 @@ public class venueController {
     public List<Venue> getAll(){
         return  venueServiceImpl.getAllVenue();
     }
-    @GetMapping("/by/{mId}")
+    @GetMapping("/by/{vid}")
     public Venue getVenue(@PathVariable(name="vid") String vid){
         return venueServiceImpl.getVenue(vid);
     }
+
+    @DeleteMapping("/delete/{vId}")
+    public void deleteVenue(@PathVariable(name = "vId") String vId){
+        venueServiceImpl.deleteVenue(vId); }
+
    @DeleteMapping("/delete")
-        public void Venue(){    //(@PathVariable(name = "mId")Integer mId){
-         venueServiceImpl.deleteVenue();
+        public void deleteAllVenue(){    //(@PathVariable(name = "mId")Integer mId){
+         venueServiceImpl.deleteAllVenue();
     }
 
 }
