@@ -31,6 +31,11 @@ public  class meetingServiceImpl {
         return meetingsRepository.findAll();
     }
 
+    public List<Meetings> getAllMeeting(String venueVid)
+    {
+        return meetingsRepository.findByVenueId(venueVid);
+    }
+
     public void deleteAllMeeting() {
         meetingsRepository.deleteAll();
     }

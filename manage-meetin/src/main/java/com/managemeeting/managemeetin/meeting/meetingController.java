@@ -34,6 +34,11 @@ public class meetingController {
         return meetingServiceImpl.getMeeting(mId);
     }
 
+    @GetMapping("/by/venue/{vid}")
+    public List<Meetings> getMeetingByVid(@PathVariable(name = "vid") String vid){
+        return meetingServiceImpl.getAllMeeting(vid);
+    }
+
     @DeleteMapping("/delete/{mId}")
     public void deleteMeeting(@PathVariable(name = "mId") String mId){
         meetingServiceImpl.deleteMeeting(mId); }

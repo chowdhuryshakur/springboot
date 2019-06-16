@@ -1,9 +1,14 @@
 package com.managemeeting.managemeetin.meeting;
 
+import com.managemeeting.managemeetin.venue.Venue;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+@Entity
 @Document(collection = "meeting")
 public class Meetings {
 
@@ -11,7 +16,7 @@ public class Meetings {
     private String MId;
 
    @Field(value = "venueName")
-    private String venue;
+    private String venueId;
 
     @Field(value = "MeetingSubject")
     private String subject;
@@ -26,12 +31,16 @@ public class Meetings {
     private Integer duration;
 
 
+    @OneToMany
+    private Venue venues;
+
+
     public Meetings() {
     }
 
-    public Meetings(String MId, String venue, String subject, Integer Time, String date,Integer duration) {
+    public Meetings(String MId, String venueId, String subject, Integer Time, String date,Integer duration) {
         this.MId = MId;
-        this.venue = venue;
+        this.venueId = venueId;
         this.subject = subject;
         this.Time = Time;
         this.date = date;
@@ -48,12 +57,12 @@ public class Meetings {
 
 
 
-    public String getVenue() {
-        return venue;
+    public String getVenueId() {
+        return venueId;
     }
 
-    public void setVenue(String venue) {
-        this.venue = venue;
+    public void setVenueId(String venue) {
+        this.venueId = venue;
     }
 
     public String getSubject() {
@@ -93,7 +102,7 @@ public class Meetings {
     public String toString() {
         return "Meetings{" +
                 "MId=" + MId +
-                ", Venue='" + venue + '\'' +
+                ", Venue='" + venueId + '\'' +
                 ", subject='" + subject + '\'' +
                 ", Time=" + Time +
                 ", date=" + date +
