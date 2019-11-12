@@ -6,16 +6,22 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import javax.persistence.Entity;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"venueId"})
+@AllArgsConstructor
+@EqualsAndHashCode(of = {"meetingId"})
 @Entity
-public class Venue {
-    @Id
+public class Meetings {
+   @Id
+    private String meetingId;
     private String venueId;
-    private Integer capacity;
-    private List<String> facilityList;
+    private String subject;
+    private LocalTime Time;
+    private LocalDate date;
+    private Integer duration;
+    private List<Employee> employeeList;
 }
