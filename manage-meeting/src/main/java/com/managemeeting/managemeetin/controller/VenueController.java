@@ -4,6 +4,8 @@ import com.managemeeting.managemeetin.CustomizeException.ResourceAlreadyExistsEx
 import com.managemeeting.managemeetin.CustomizeException.ResourceNotFoundException;
 import com.managemeeting.managemeetin.model.Venue;
 import com.managemeeting.managemeetin.service.VenueService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/venues")
 public class VenueController {
-
+    Logger logger = LoggerFactory.getLogger(VenueController.class);
     private VenueService venueService;
 
     public VenueController(VenueService venueService) {
@@ -22,12 +24,14 @@ public class VenueController {
 
     @GetMapping("")
     public ResponseEntity<List<Venue>> getVenue(){
+        logger.trace("getVenue method is called");
         List<Venue> VenueList = venueService.findAll();
         return ResponseEntity.ok(VenueList);
     }
 
     @GetMapping("/{venueId}")
     public ResponseEntity<Venue> getVenue(@PathVariable String venueId){
+        logger.trace("getVenueById method is called");
         try{
             Venue venue = venueService.findById(venueId);
             return ResponseEntity.ok(venue);}
@@ -40,6 +44,7 @@ public class VenueController {
 
     @PostMapping("")
     public  ResponseEntity<Venue> insertVenue(@RequestBody Venue venue){
+        logger.trace("insertVenue method is called");
         try{
             Venue insertVenue = venueService.insertVenue(venue);
             return ResponseEntity.status(HttpStatus.CREATED).body(insertVenue);}
@@ -48,6 +53,7 @@ public class VenueController {
 
     @PutMapping("/{venueId}")
     public  ResponseEntity<Venue> updateVenue(@PathVariable String venueId, @RequestBody Venue venue){
+        logger.trace("updateVenue method is called");
         try{
             Venue updateVenue = venueService.updateVenue(venueId, venue);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(updateVenue);}
@@ -57,6 +63,7 @@ public class VenueController {
 
     @DeleteMapping("/{venueId}")
     public ResponseEntity<String> deleteVenue(@PathVariable String venueId){
+        logger.trace("deleteVenue method is called");
         try{
             boolean deletedVenue = venueService.deleteById(venueId);
             return ResponseEntity.ok(venueId);}

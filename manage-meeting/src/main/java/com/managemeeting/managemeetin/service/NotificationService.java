@@ -21,29 +21,29 @@ public  class NotificationService {
     }
 
     public Notification insertNotification(Notification notification) throws ResourceAlreadyExistsException {
-        Optional<Notification> optionalNotification = notificationRepository.findById(notification.getMessage());
+        Optional<Notification> optionalNotification = notificationRepository.findById(notification.getNotificationId());
         if(optionalNotification.isPresent()){
-            throw new ResourceAlreadyExistsException(notification.getMessage() + "");
+            throw new ResourceAlreadyExistsException(notification.getNotificationId() + "");
         }
         else{
             return notificationRepository.save(notification);
         }
     }
 
-    public Notification updateNotification (String message, Notification notification) throws ResourceNotFoundException {
-        Optional<Notification> optionalNotification = notificationRepository.findById(message);
+    public Notification updateNotification (String notificationId, Notification notification) throws ResourceNotFoundException {
+        Optional<Notification> optionalNotification = notificationRepository.findById(notificationId);
         if(optionalNotification.isPresent()){
-            notification.setMessage(message);
+            notification.setNotificationId(notificationId);
             return notificationRepository.save(notification);
         }
-        else throw new ResourceNotFoundException(message + "");
+        else throw new ResourceNotFoundException(notificationId + "");
     }
 
-    public Notification findById(String message) throws ResourceNotFoundException {
-        Optional<Notification> optionalNotification = notificationRepository.findById(message);
+    public Notification findById(String notificationId) throws ResourceNotFoundException {
+        Optional<Notification> optionalNotification = notificationRepository.findById(notificationId);
         if(optionalNotification.isPresent()){
             return optionalNotification.get();
-        }else throw new ResourceNotFoundException(message + "");
+        }else throw new ResourceNotFoundException(notificationId + "");
     }
 
     public List<Notification>findAll(){
@@ -52,10 +52,10 @@ public  class NotificationService {
         return notificationList;
     }
 
-    public  boolean deleteById(String message) throws ResourceNotFoundException{
-        Optional<Notification> optionalNotification = notificationRepository.findById(message);
-        optionalNotification.ifPresent(notification -> notificationRepository.deleteById(message));
-        optionalNotification.orElseThrow(() -> new ResourceNotFoundException(message + ""));
+    public  boolean deleteById(String notificationId) throws ResourceNotFoundException{
+        Optional<Notification> optionalNotification = notificationRepository.findById(notificationId);
+        optionalNotification.ifPresent(notification -> notificationRepository.deleteById(notificationId));
+        optionalNotification.orElseThrow(() -> new ResourceNotFoundException(notificationId + ""));
         return true;
     }
 

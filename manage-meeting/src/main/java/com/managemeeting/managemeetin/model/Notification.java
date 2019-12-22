@@ -6,16 +6,17 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode (of = {"employeeId","message"})
+@EqualsAndHashCode (of = {"notificationId"})
 @Entity
 public class Notification {
-    private String employeeId;
     @Id
+    private String notificationId;
+    private String employeeId;
     private String message;
 
 }
