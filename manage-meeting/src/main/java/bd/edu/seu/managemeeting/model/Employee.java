@@ -22,5 +22,10 @@ public class Employee {
     private String designation;
     private String department;
     private String mail;
+    private String loginStatus;
 
+
+    public Employee(String loginStatus) {
+        this.loginStatus = loginStatus;
+    }
 }
