@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +30,14 @@ public class EmployeeController {
     @RequestMapping({ "/validateLogin" })
     public Employee validateLogin() {
         return new Employee("User successfully authenticated");
+    }
+    @RequestMapping("/role")
+    public @ResponseBody String userInfo(Authentication authentication) {
+        String role = "";
+        for (GrantedAuthority authority : authentication.getAuthorities()) {
+             role = authority.getAuthority();
+        }
+        return role;
     }
 
     @GetMapping("")
@@ -77,6 +87,7 @@ public class EmployeeController {
             return ResponseEntity.ok(employeeId);}
         catch (ResourceNotFoundException e){return ResponseEntity.notFound().build();}
     }
+
 
 
 }

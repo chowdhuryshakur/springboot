@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.Authentication;
 
 @Configuration
 @EnableWebSecurity
@@ -14,18 +16,14 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       /* http.cors();
-        http.csrf().disable().
-                authorizeRequests()
-                .antMatchers("/**").
-                fullyAuthenticated()
-                .and().httpBasic();*/
+
        http.csrf().disable().
                 authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").
-                permitAll().anyRequest()
-                .authenticated()
-                .and().httpBasic();
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .hasRole("ADMIN").anyRequest().authenticated()
+                .antMatchers(HttpMethod.OPTIONS, "/user")
+                .hasRole("USER").and()
+                .httpBasic();
 
     }
 
@@ -35,9 +33,12 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("shakur")
                 .password("{noop}1234")
-                .roles("ADMIN");
+                .roles("ADMIN")
+                .and()
+                .withUser("imran")
+                .password("{noop}1234")
+                .roles("USER");
     }
-
 
 
 
