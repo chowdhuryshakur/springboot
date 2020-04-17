@@ -30,8 +30,7 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
                 .hasRole("ADMIN").anyRequest().authenticated()
                 .antMatchers(HttpMethod.OPTIONS, "/user")
                 .hasRole("USER").and()
-                .httpBasic();
-*/
+                .httpBasic();*/
     }
 
     @Override

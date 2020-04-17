@@ -31,11 +31,12 @@ public class EmployeeController {
     public Employee validateLogin() {
         return new Employee("User successfully authenticated");
     }
+
     @RequestMapping("/role")
     public @ResponseBody String userInfo(Authentication authentication) {
         String role = "";
         for (GrantedAuthority authority : authentication.getAuthorities()) {
-             role = authority.getAuthority();
+             role = authority.getAuthority().replace("ROLE_", "");
         }
         return role;
     }
