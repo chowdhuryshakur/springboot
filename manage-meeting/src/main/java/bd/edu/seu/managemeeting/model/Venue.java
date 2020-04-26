@@ -18,7 +18,5 @@ public class Venue {
     private String venueId;
     private Integer capacity;
     private List<String> facilityList;
-    private List<Meetings> meetingsList;
-
 
 }

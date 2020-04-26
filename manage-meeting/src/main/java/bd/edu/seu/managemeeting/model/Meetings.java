@@ -13,9 +13,9 @@ import java.util.List;
 @EqualsAndHashCode(of = {"meetingId"})
 @Entity
 public class Meetings {
-   @Id
+    @Id
     private String meetingId;
-   private Venue venue;
+    private Venue venue;
     private String subject;
     private LocalDateTime DateAndTime;
     private Integer duration;

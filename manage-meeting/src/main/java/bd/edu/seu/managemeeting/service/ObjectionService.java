@@ -28,16 +28,17 @@ public class ObjectionService {
     }
 
     public Objection insertObjection(Objection objection) throws ResourceAlreadyExistsException {
-        Optional<Objection> optionalObjection = objectionRepository.findById(objection.getObjectionId());
+       /* Optional<Objection> optionalObjection = objectionRepository.findById(objection.getObjectionId());
         if (optionalObjection.isPresent()) {
             logger.warn("Objection ID {} already exists", objection.getObjectionId());
             throw new ResourceAlreadyExistsException(objection.getObjectionId() + "");
         } else {
             return objectionRepository.save(objection);
-        }
+        }*/
+        return objectionRepository.save(objection);
     }
 
-    public Objection updateObjection(String objectionId, Objection objection) throws ResourceNotFoundException {
+    /*public Objection updateObjection(ObjectId objectionId, Objection objection) throws ResourceNotFoundException {
         Optional<Objection> optionalObjection = objectionRepository.findById(objectionId);
         if (optionalObjection.isPresent()) {
             objection.setObjectionId(objectionId);
@@ -46,30 +47,29 @@ public class ObjectionService {
             logger.warn("Objection ID {} doesn't exist", objection.getObjectionId());
             throw new ResourceNotFoundException(objectionId + "");
         }
-    }
+    }*/
 
-    public Objection findById(String objectionId) throws ResourceNotFoundException {
-        Optional<Objection> optionalObjection = objectionRepository.findById(objectionId);
+    public Objection findById(ObjectId id) throws ResourceNotFoundException {
+        Optional<Objection> optionalObjection = objectionRepository.findById(id);
         if (optionalObjection.isPresent()) {
             return optionalObjection.get();
         } else {
-            logger.warn("Objection ID {} doesn't exist", objectionId);
-            throw new ResourceNotFoundException(objectionId + "");
+            logger.warn("Objection ID {} doesn't exist", id);
+            throw new ResourceNotFoundException(id + "");
         }
     }
 
     public List<Objection> findAll() {
-        /*List<Objection>objectionList = new ArrayList<>();
+        List<Objection>objectionList = new ArrayList<>();
         objectionRepository.findAll().forEach(objectionList::add);
-        return objectionList;*/
-        return objectionRepository.findAll();
+        return objectionList;
     }
 
-    public boolean deleteById(String objectionId) throws ResourceNotFoundException {
-        Optional<Objection> optionalObjection = objectionRepository.findById(objectionId);
-        optionalObjection.ifPresent(objection -> objectionRepository.deleteById(objectionId));
-        logger.info("Objection id {} is deleted", objectionId);
-        optionalObjection.orElseThrow(() -> new ResourceNotFoundException(objectionId + ""));
+    public boolean deleteById(ObjectId id) throws ResourceNotFoundException {
+        Optional<Objection> optionalObjection = objectionRepository.findById(id);
+        optionalObjection.ifPresent(objection -> objectionRepository.deleteById(id));
+        logger.info("Objection id {} is deleted", id);
+        optionalObjection.orElseThrow(() -> new ResourceNotFoundException(id + ""));
         return true;
     }
 
