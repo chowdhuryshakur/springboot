@@ -56,7 +56,7 @@ public class ObjectionController {
     }
 
     @PutMapping("/{objectionId}")
-    public  ResponseEntity<Objection> updateObjection(@PathVariable ObjectId objectionId, @RequestBody Objection objection){
+    public  ResponseEntity<Objection> updateObjection(@PathVariable String objectionId, @RequestBody Objection objection){
         logger.trace("updateObjection method is called");
         try{
             Objection updateObjection = objectionService.updateObjection(objectionId, objection);
